@@ -26,12 +26,21 @@ Método POST - 'https://ctdcommerce.com/products': este end-point deverá efetua
 
 Método GET - 'https://ctdcommerce.com/products': 
 - este end-point deverá disponibilizar os dados de todos os produtos cadastrados em um JSON com o formato que segue:
+
+![Untitled (1)](https://user-images.githubusercontent.com/86542760/162217509-1ed6b8f6-3bb9-4a07-9b5d-19ada5b8eefd.png)
+
 ---
 Método GET - https://ctdcommerce.com/products/1: 
 - este end-point deverá disponibilizar os dados de um produto específico em um JSON  com o formato que segue:
+
+![Untitled (2)](https://user-images.githubusercontent.com/86542760/162217767-ac42dca7-880e-4657-85d0-3ad6c137b201.png)
+
 ---
 Método GET - https://ctdcommerce.com/products/categories: 
 - este end-point deverá disponibilizar uma lista de categorias cadastradas em um JSON  com o formato que segue:
+
+![Untitled (3)](https://user-images.githubusercontent.com/86542760/162217847-c47ac642-31cd-4e8e-837b-87c572241ca4.png)
+
 ---
 Método PUT- 'https://ctdcommerce.com/products': 
 - este end-point também será utilizado para atualizar produtos. Para isso, será necessário o envio das informações via corpo da requisição, alterando as informações desejadas e mantendo as anteriores. Por exemplo:
