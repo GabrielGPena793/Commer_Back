@@ -2,7 +2,6 @@ package com.dh.commerce.controllers;
 
 import com.dh.commerce.dto.ProductDTO;
 import com.dh.commerce.dto.ProductLongCategoryDTO;
-import com.dh.commerce.entities.Product;
 import com.dh.commerce.services.CategoriesService;
 import com.dh.commerce.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,7 @@ public class ProductsController  {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
+        productsService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully!");
     }
 

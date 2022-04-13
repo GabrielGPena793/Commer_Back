@@ -70,11 +70,11 @@ public class ProductsService {
     @Transactional
     public void delete(Long id){
 
-        if (productRepository.findById(id).isPresent()){
-            productRepository.deleteById(id);
+        if (productRepository.findById(id).isEmpty()){
+            throw new EntitieNotFoundException("Entity not found");
         }
 
-        throw new EntitieNotFoundException("Entity not found");
+        productRepository.deleteById(id);
     }
 
 }
