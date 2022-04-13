@@ -8,7 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriesService {
@@ -23,8 +25,9 @@ public class CategoriesService {
         return  new CategoriesDTO(categoriesRepository.save(categories));
     }
 
-    public List<Categories> findAll(){
-        return categoriesRepository.findAll();
+    @Transactional
+    public List<CategoriesDTO> findAll(){
+        return categoriesRepository.findAll().stream().map(CategoriesDTO::new).collect(Collectors.toList());
     }
 
     public CategoriesDTO findById(Long id){

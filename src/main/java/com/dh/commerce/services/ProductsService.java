@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -76,5 +78,13 @@ public class ProductsService {
 
         productRepository.deleteById(id);
     }
+
+//    @Transactional
+//    public List<ProductDTO> findAllProductsById(Map<Long, Integer> cartProducts){
+//        List<Product> productList = productRepository.findAllById(cartProducts.keySet());
+//
+//
+//
+//    }
 
 }
