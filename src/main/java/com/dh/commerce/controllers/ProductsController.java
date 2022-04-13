@@ -1,10 +1,14 @@
 package com.dh.commerce.controllers;
 
 import com.dh.commerce.dto.ProductDTO;
+import com.dh.commerce.dto.ProductLongCategoryDTO;
 import com.dh.commerce.entities.Product;
 import com.dh.commerce.services.CategoriesService;
 import com.dh.commerce.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,25 +27,18 @@ public class ProductsController  {
 
 
     @PostMapping
-    private ResponseEntity<Product> post(@RequestBody ProductDTO productDTO){
-
-        return ResponseEntity.ok(productsService.post(productDTO));
+    private ResponseEntity<ProductDTO> post(@RequestBody ProductLongCategoryDTO productLongCategoryDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productsService.post(productLongCategoryDTO));
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll(){
-
-        return ResponseEntity.ok(productsService.findAll());
+    public ResponseEntity<Page<ProductDTO>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(productsService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
-
-        if (productsService.findById(id) != null){
-            return ResponseEntity.ok(productsService.findById(id));
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(productsService.findById(id));
     }
 
     @GetMapping("/categories")
@@ -50,24 +47,13 @@ public class ProductsController  {
     }
 
     @PutMapping
-    public ResponseEntity<Product> update(@RequestBody ProductDTO productDTO){
-
-        if (productsService.findById(productDTO.getId()) != null){
-            return ResponseEntity.ok(productsService.put(productDTO));
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<ProductDTO> update(@RequestBody ProductLongCategoryDTO productLongCategoryDTO){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(productsService.put(productLongCategoryDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
-
-        if (productsService.findById(id) != null){
-            productsService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully!");
     }
 
 }

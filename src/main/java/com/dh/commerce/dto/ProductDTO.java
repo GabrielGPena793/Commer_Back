@@ -1,13 +1,15 @@
 package com.dh.commerce.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import com.dh.commerce.entities.Categories;
+import com.dh.commerce.entities.Product;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDTO {
 
     private Long id;
@@ -15,25 +17,14 @@ public class ProductDTO {
     private String title;
     private String description;
     private String image;
-    private Long category;
+    private Categories category;
 
-    public ProductDTO() {
-    }
-
-    public ProductDTO(Double price, String description, String image, Long category, String title) {
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.image = image;
-        this.category = category;
-    }
-
-    public ProductDTO(Long id, Double price, String title, String description, String image, Long category) {
-        this.id = id;
-        this.price = price;
-        this.title = title;
-        this.description = description;
-        this.image = image;
-        this.category = category;
+    public ProductDTO(Product product) {
+        id = product.getId();
+        price = product.getPrice();
+        title = product.getTitle();
+        description = product.getDescription();
+        image = product.getImage();
+        category = product.getCategory();
     }
 }

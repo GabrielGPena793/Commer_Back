@@ -1,12 +1,20 @@
 package com.dh.commerce.services;
 
 import com.dh.commerce.dto.ProductDTO;
+import com.dh.commerce.dto.ProductLongCategoryDTO;
+import com.dh.commerce.entities.Categories;
 import com.dh.commerce.entities.Product;
+import com.dh.commerce.repositories.CategoriesRepository;
 import com.dh.commerce.repositories.ProductRepository;
+import com.dh.commerce.services.Exceptions.EntitieNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class ProductsService {
@@ -15,42 +23,58 @@ public class ProductsService {
     private ProductRepository productRepository;
 
     @Autowired
-    private CategoriesService categoriesService;
+    private CategoriesRepository categoriesRepository;
 
-    public Product post(ProductDTO productDTO){
+    @Transactional
+    public ProductDTO post(ProductLongCategoryDTO productLongCategoryDTO){
+
+        Optional<Categories> categories = categoriesRepository.findById(productLongCategoryDTO.getCategory());
+        if (categories.isEmpty()){
+            throw new EntitieNotFoundException("Entity not found!");
+        }
 
         Product product = new Product();
-        product.setTitle(productDTO.getTitle());
-        product.setPrice(productDTO.getPrice());
-        product.setImage(productDTO.getImage());
-        product.setDescription(productDTO.getDescription());
-        product.setCategory(categoriesService.findById(productDTO.getCategory()));
+        BeanUtils.copyProperties(productLongCategoryDTO, product);
+        product.setCategory(categories.get());
+        product = productRepository.save(product);
+        return new ProductDTO(product);
 
-        return productRepository.save(product);
     }
 
-    public List<Product> findAll(){
-        return productRepository.findAll();
+    public Page<ProductDTO> findAll(Pageable pageable){
+        return productRepository.findAll(pageable).map(ProductDTO::new);
     }
 
-    public Product findById(Long id){
-        return productRepository.findById(id).orElse(null);
+    public ProductDTO findById(Long id){
+
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty()){
+            throw new EntitieNotFoundException("Entity not found!");
+        }
+
+        return new ProductDTO(product.get());
     }
 
-    public Product put(ProductDTO productDTO){
+    @Transactional
+    public ProductDTO put(ProductLongCategoryDTO productDTO){
 
-        Product product = findById(productDTO.getId());
-        product.setTitle(productDTO.getTitle());
-        product.setPrice(productDTO.getPrice());
-        product.setImage(productDTO.getImage());
-        product.setDescription(productDTO.getDescription());
-        product.setCategory(categoriesService.findById(productDTO.getCategory()));
-
-        return productRepository.save(product);
+        Product product = productRepository.findById(productDTO.getId()).orElse(null);
+        if (product == null){
+            throw new EntitieNotFoundException("Entity not found!");
+        }
+        BeanUtils.copyProperties(productDTO, product);
+        product.setCategory(categoriesRepository.findById(productDTO.getCategory()).orElse(null));
+        return new ProductDTO(productRepository.save(product));
     }
 
+    @Transactional
     public void delete(Long id){
-        productRepository.deleteById(id);
+
+        if (productRepository.findById(id).isPresent()){
+            productRepository.deleteById(id);
+        }
+
+        throw new EntitieNotFoundException("Entity not found");
     }
 
 }
