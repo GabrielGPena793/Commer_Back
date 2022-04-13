@@ -25,15 +25,76 @@ Método POST - 'https://ctdcommerce.com/products': este end-point deverá efetua
 ---
 
 Método GET - 'https://ctdcommerce.com/products': 
-- este end-point deverá disponibilizar os dados de todos os produtos cadastrados em um JSON com o formato que segue:
+- este end-point deverá disponibilizar os dados de todos os produtos cadastrados Paginados em um JSON com o formato que segue:
 
-![Untitled (1)](https://user-images.githubusercontent.com/86542760/162217509-1ed6b8f6-3bb9-4a07-9b5d-19ada5b8eefd.png)
+
+		{
+		  "content": [
+		  {
+		    "id": 5,
+		    "price": 350.5,
+		    "title": "aa",
+		    "description": "Produto novo.",
+		    "image": "https://a-static.mlcdn.com.br/618x463/bolsa-feminina-dhaffy-bege-divisorias-alca-de-mao-e-transversal-dhaffy.jpg",
+		    "category": {
+		    	"id": 2,
+			"name": "saia"
+			  }
+		   },
+		   {
+	             "id": 6,
+		     "price": 350.5,
+		     "title": "aa",
+		     "description": "Produto novo.",
+		     "image": "https://a-static.mlcdn.com.br/618x463/bolsa-feminina-dhaffy-bege-divisorias-alca-de-mao-e-transversal-dhaffy.jpg",
+		      "category": {
+		          "id": 2,
+			  "name": "saia"
+			 }
+		      }
+		    ],
+		    "pageable": {
+			"sort": {
+			    "empty": true,
+			    "sorted": false,
+			    "unsorted": true
+			},
+			"offset": 2,
+			"pageNumber": 1,
+			"pageSize": 2,
+			"paged": true,
+			"unpaged": false
+		    },
+		    "totalPages": 3,
+		    "totalElements": 6,
+		    "last": false,
+		    "size": 2,
+		    "number": 1,
+		    "sort": {
+			"empty": true,
+			"sorted": false,
+			"unsorted": true
+		    },
+		    "numberOfElements": 2,
+		    "first": false,
+		    "empty": false
+		}
 
 ---
 Método GET - https://ctdcommerce.com/products/1: 
 - este end-point deverá disponibilizar os dados de um produto específico em um JSON  com o formato que segue:
 
-![Untitled (2)](https://user-images.githubusercontent.com/86542760/162217767-ac42dca7-880e-4657-85d0-3ad6c137b201.png)
+		{
+		    "id": 6,
+		    "price": 200.5,
+		    "title": "Vestido alterado",
+		    "description": "Produto alterado",
+		    "image": "https://a-static.mlcdn.com.br/618x463/bolsa-feminina-dhaffy-bege-divisorias-alca-de-mao-e-transversal-dhaffy.jpg",
+		    "category": {
+			"id": 5,
+			"name": "bolsa"
+		    }
+		}
 
 ---
 Método GET - https://ctdcommerce.com/products/categories: 
