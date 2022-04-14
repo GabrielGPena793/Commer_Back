@@ -1,5 +1,6 @@
 package com.dh.commerce.controllers;
 
+import com.dh.commerce.dto.ProductCartDTO;
 import com.dh.commerce.dto.ProductDTO;
 import com.dh.commerce.dto.ProductLongCategoryDTO;
 import com.dh.commerce.services.CategoriesService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/products")
@@ -54,6 +56,11 @@ public class ProductsController  {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
         productsService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully!");
+    }
+
+    @GetMapping("/productCart")
+    public ResponseEntity<List<ProductDTO>> cartValuesAtt(@RequestBody List<ProductCartDTO> productCartDTO){
+       return ResponseEntity.status(HttpStatus.OK).body(productsService.cartValuesAtt(productCartDTO));
     }
 
 }

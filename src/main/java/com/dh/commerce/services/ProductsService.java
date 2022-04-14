@@ -1,5 +1,6 @@
 package com.dh.commerce.services;
 
+import com.dh.commerce.dto.ProductCartDTO;
 import com.dh.commerce.dto.ProductDTO;
 import com.dh.commerce.dto.ProductLongCategoryDTO;
 import com.dh.commerce.entities.Categories;
@@ -14,9 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductsService {
@@ -79,12 +79,15 @@ public class ProductsService {
         productRepository.deleteById(id);
     }
 
-//    @Transactional
-//    public List<ProductDTO> findAllProductsById(Map<Long, Integer> cartProducts){
-//        List<Product> productList = productRepository.findAllById(cartProducts.keySet());
-//
-//
-//
-//    }
+    @Transactional
+    public List<ProductDTO> cartValuesAtt(List<ProductCartDTO> cartProducts){
 
+        return cartProducts.stream().map(cartProduct -> {
+            ProductDTO productDTO = new ProductDTO();
+            Product product = productRepository.findById(cartProduct.getId()).orElse(null);
+            BeanUtils.copyProperties(product, productDTO);
+            productDTO.setPrice(product.getPrice() * cartProduct.getQuantity());
+            return productDTO;
+        }).collect(Collectors.toList());
+    }
 }

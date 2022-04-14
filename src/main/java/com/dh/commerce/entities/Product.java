@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_product")
-public class Product {
+public class Product  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
