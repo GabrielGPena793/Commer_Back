@@ -117,3 +117,22 @@ Método PUT- 'https://ctdcommerce.com/products':
 ---
 Método DELETE - 'https://ctdcommerce.com/products/1': 
 - este end-point será responsável por excluir um recurso da API Rest. Para isso, basta enviar por parâmetro, o id do produto.
+
+---
+Método Get - "/categories"
+- este end-point retornar todas as categorias com nome e id
+
+		[
+		    {
+			"id": 1,
+			"name": "Periféricos"
+		    },
+		    {
+			"id": 2,
+			"name": "Notebook"
+		    },
+		    {
+			"id": 3,
+			"name": "Hardware"
+		    }
+		]
