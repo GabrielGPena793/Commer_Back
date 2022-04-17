@@ -117,3 +117,50 @@ Método PUT- 'https://ctdcommerce.com/products':
 ---
 Método DELETE - 'https://ctdcommerce.com/products/1': 
 - este end-point será responsável por excluir um recurso da API Rest. Para isso, basta enviar por parâmetro, o id do produto.
+
+---
+Método Get - "/categories"
+- este end-point retornar todas as categorias com nome e id
+
+		[
+		    {
+			"id": 1,
+			"name": "Periféricos"
+		    },
+		    {
+			"id": 2,
+			"name": "Notebook"
+		    },
+		    {
+			"id": 3,
+			"name": "Hardware"
+		    }
+		]
+---
+Método Get - "/products/productCart"
+- Este end-point retorna o resultado do valor do produto vezes a quantidade de vezes que foi selecionado, o end point espera um array de objetos :
+
+		[
+		   {
+			"id" :1 ,
+			"quantity": 2
+		   }
+			
+		]
+
+
+- resultado:
+
+		[
+		    {
+			"id": 1,
+			"price": 1499.5,
+			"title": "Teclado Mecânico Gamer",
+			"description": "Logitech G413 Carbon com Layout ABNT2, Iluminação Vermelha, USB Passthrough e Switch Exclusivo Romer-G - 920-				009162 ",
+			"image": "https://m.media-amazon.com/images/I/51T2yZB8XDL._AC_SY450_.jpg ",
+			"category": {
+			    "id": 1,
+			    "name": "Periféricos"
+			}
+		    }
+		]
