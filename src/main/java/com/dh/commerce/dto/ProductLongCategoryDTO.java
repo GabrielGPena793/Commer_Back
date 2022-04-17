@@ -12,8 +12,8 @@ import lombok.Setter;
 public class ProductLongCategoryDTO {
 
     private Long id;
-    private Double price;
     private String title;
+    private Double price;
     private String description;
     private String image;
     private Long category;
@@ -21,7 +21,7 @@ public class ProductLongCategoryDTO {
     public ProductLongCategoryDTO() {
     }
 
-    public ProductLongCategoryDTO(Double price, String description, String image, Long category, String title) {
+    public ProductLongCategoryDTO(String title, Double price, String description, String image, Long category) {
         this.title = title;
         this.price = price;
         this.description = description;
