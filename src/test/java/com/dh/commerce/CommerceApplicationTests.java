@@ -23,10 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc(addFilters = false)*/
 class CommerceApplicationTests {
+/*
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -115,6 +116,7 @@ class CommerceApplicationTests {
 
 		Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
 	}
+*/
 
 /*
 	@Test
