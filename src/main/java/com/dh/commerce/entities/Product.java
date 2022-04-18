@@ -23,7 +23,7 @@ public class Product  {
     private String title;
     @Column(name = "price", nullable = false)
     private Double price;
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @Column(name = "image", nullable = false)
     private String image;

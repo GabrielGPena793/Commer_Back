@@ -58,7 +58,7 @@ public class ProductsController  {
         return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully!");
     }
 
-    @GetMapping("/productCart")
+    @PostMapping("/productCart")
     public ResponseEntity<List<ProductDTO>> cartValuesAtt(@RequestBody List<ProductCartDTO> productCartDTO){
        return ResponseEntity.status(HttpStatus.OK).body(productsService.cartValuesAtt(productCartDTO));
     }

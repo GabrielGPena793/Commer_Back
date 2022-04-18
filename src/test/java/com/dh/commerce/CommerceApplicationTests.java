@@ -1,5 +1,6 @@
 package com.dh.commerce;
 
+import com.dh.commerce.dto.ProductCartDTO;
 import com.dh.commerce.dto.ProductLongCategoryDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,7 +62,7 @@ class CommerceApplicationTests {
 	}
 
 	@Test
-	void testPostCategory() throws Exception {
+	void testPostProduct() throws Exception {
 		ProductLongCategoryDTO payloadDTO = new ProductLongCategoryDTO("Mouse para jogo Fortrek Crusader preto",
 				61.06, "Para trabalhar desde casa com o computador ou aproveitar momentos de lazer, você precisa de " +
 				"conforto e facilidade de movimento.", "https://http2.mlstatic.com/D_NQ_NP_630548-MLA46389425443_062021-O.webp",
@@ -82,4 +83,60 @@ class CommerceApplicationTests {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.title")
 						.value("Mouse para jogo Fortrek Crusader preto"));
 	}
+
+	@Test
+	void testPutCategory() throws Exception {
+		ProductLongCategoryDTO payloadDTO = new ProductLongCategoryDTO(23L, 61.06,"Mouse para jogo Fortrek",
+				 "Para trabalhar desde casa com o computador ou aproveitar momentos de lazer, você precisa de " +
+				"conforto e facilidade de movimento.", "https://http2.mlstatic.com/D_NQ_NP_630548-MLA46389425443_062021-O.webp",
+				1L);
+
+		ObjectWriter objectWriter = new ObjectMapper()
+				.configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+				.writer().withDefaultPrettyPrinter();
+
+		String payloadJson = objectWriter.writeValueAsString(payloadDTO);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.put("/products")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(payloadJson))
+				.andDo(print())
+				.andExpect(status().isAccepted())
+				.andExpect(content().contentType("application/json"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.title")
+						.value("Mouse para jogo Fortrek"));
+	}
+
+	@Test
+	void testDeleteProductById() throws Exception {
+		MvcResult  mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.delete("/products/{id}", 24))
+				.andDo(print()).andExpect(status().isOk())
+				.andReturn();
+
+		Assertions.assertEquals(200, mvcResult.getResponse().getStatus());
+	}
+
+/*
+	@Test
+	void testCartProductResponse() throws Exception {
+		ProductCartDTO payloadDTO = new ProductCartDTO(1L, 4);
+
+		ObjectWriter objectWriter = new ObjectMapper()
+				.configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+				.writer().withDefaultPrettyPrinter();
+
+		String payloadJson = objectWriter.writeValueAsString(payloadDTO);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/products/productCart")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(payloadJson))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.price")
+						.value(1199.6));
+	}
+*/
+
+
 }
