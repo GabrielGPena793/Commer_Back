@@ -32,6 +32,11 @@ public class ProductsController  {
         return ResponseEntity.status(HttpStatus.CREATED).body(productsService.post(productLongCategoryDTO));
     }
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductDTO>> findByCategoryName(@PathVariable Long categoryId){
+        return ResponseEntity.status(HttpStatus.OK).body(productsService.acharCategory(categoryId));
+    }
+
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(productsService.findAll(pageable));

@@ -47,6 +47,10 @@ public class ProductsService {
         return productRepository.findAll(pageable).map(ProductDTO::new);
     }
 
+    public List<ProductDTO> acharCategory(Long categoryId){
+        return productRepository.acharCategory(categoryId).stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
+
     public ProductDTO findById(Long id){
 
         Optional<Product> product = productRepository.findById(id);
