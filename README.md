@@ -2,7 +2,7 @@
 
 Requisitos Back-end:
 
-Você deverá fazer o back-end de nosso e-commerce em Java com o Framework Spring no modelo MVC.
+Você deverá fazer o back-end de nosso e-commerce em Java com o Framework Spring no modelo MVC..
 
 O banco de dados deverá ser o MySQL. 
 
